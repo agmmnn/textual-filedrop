@@ -11,9 +11,9 @@ import os
 import re
 
 
-class Filedrop(Widget, can_focus=True, can_focus_children=False):
+class FileDrop(Widget, can_focus=True, can_focus_children=False):
     DEFAULT_CSS = """
-    Filedrop {
+    FileDrop {
         height: 100%;
         border: round $panel-lighten-2;
         background: $panel;
@@ -65,14 +65,14 @@ class Filedrop(Widget, can_focus=True, can_focus_children=False):
                 self.styles.border = ("round", "#2E8B57")
 
 
-class FiledropApp(App):
+class FileDropApp(App):
     def compose(self) -> ComposeResult:
-        yield Filedrop(id="filedrop")
+        yield FileDrop(id="filedrop")
 
     def on_mount(self):
         self.query_one("#filedrop").focus()
 
-    def on_filedrop_selected(self, message: Filedrop.Selected) -> None:
+    def on_file_drop_selected(self, message: FileDrop.Selected) -> None:
         path = message.path
         filepaths = message.filepaths
         filenames = message.filenames
@@ -80,5 +80,5 @@ class FiledropApp(App):
 
 
 if __name__ == "__main__":
-    app = FiledropApp()
+    app = FileDropApp()
     app.run()
