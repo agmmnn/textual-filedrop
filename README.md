@@ -2,7 +2,7 @@
 
 # textual-filedrop
 
-Add filedrop support to your Textual apps, easily drag and drop files into your terminal apps. _Tested in Windows Terminal only. Other terminals/operating systems may not be using the Paste() event._
+Add filedrop support to your [Textual](https://github.com/textualize/textual/) apps, easily drag and drop files into your terminal apps. _Tested in Windows Terminal only. Other terminals/operating systems may not be using the [Paste](https://textual.textualize.io/events/paste/) event._
 
 ## Install
 
