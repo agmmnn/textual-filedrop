@@ -1,0 +1,9 @@
+https://www.example.com
+https://mail.example.com
+https://blog.example.com
+https://store.example.com
+https://api.example.com
+https://dev.api.example.com
+https://test.api.example.com
+https://staging.store.example.com
+https://support.blog.example.com

@@ -1,4 +1,3 @@
-from textual.app import App, ComposeResult
 from textual.widget import Widget
 from textual.reactive import reactive
 from textual.message import Message
@@ -14,31 +13,36 @@ from ._icons import get_icon
 
 
 class FileDrop(Widget, can_focus=True, can_focus_children=False):
+
     DEFAULT_CSS = """
+    
     FileDrop {
+        border: round gray;
         height: 100%;
-        border: round $panel-lighten-2;
         background: $panel;
         content-align: center middle;
         padding: 0 3;
     }
     """
+
     txt = reactive("Please Drag and Drop the files here...")
 
     def __init__(
         self,
+        display: bool = True,
         name: str | None = None,
         id: str | None = None,
         classes: str | None = None,
     ) -> None:
         super().__init__(name=name, id=id, classes=classes)
 
+        if not display:
+            self.styles.display = "none"
+
     def render(self) -> RenderableType:
         return self.txt
 
-    class Selected(Message):
-        """File paths selected message."""
-
+    class Dropped(Message):
         def __init__(
             self,
             sender: MessageTarget,
@@ -54,6 +58,10 @@ class FileDrop(Widget, can_focus=True, can_focus_children=False):
             super().__init__(sender)
 
     async def on_event(self, event: events.Event) -> None:
+        if isinstance(event, events.Focus):
+            self.styles.border = ("round", "dodgerblue")
+        if isinstance(event, events.Blur):
+            self.styles.border = ("round", "gray")
         if isinstance(event, events.Paste):
             pattern = r'(?:[^\s"]|"(?:\\"|[^"])*")+'
             split_filepaths = re.findall(pattern, event.text)
@@ -79,7 +87,7 @@ class FileDrop(Widget, can_focus=True, can_focus_children=False):
                         }
                     )
                 await self.emit(
-                    self.Selected(
+                    self.Dropped(
                         self,
                         os.path.split(filepaths[0])[0],
                         filepaths,
@@ -87,7 +95,9 @@ class FileDrop(Widget, can_focus=True, can_focus_children=False):
                         filesobj,
                     )
                 )
-                self.txt = ", ".join(
-                    [f'[on dark_green] {i["icon"]} [/]{i["name"]}' for i in filesobj]
+                self.txt = " ".join(
+                    [
+                        f'[on dodger_blue3] {i["icon"]} [/][on gray27]{i["name"]}[/]'
+                        for i in filesobj
+                    ]
                 )
-                self.styles.border = ("round", "#2E8B57")

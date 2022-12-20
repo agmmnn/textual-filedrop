@@ -9,7 +9,7 @@ from textual_filedrop import FileDrop
 
 
 class CombinerApp(App):
-    CSS = """
+    DEFAULT_CSS = """
         Screen {
             align: center middle;
         }
@@ -19,22 +19,26 @@ class CombinerApp(App):
     """
 
     def compose(self) -> ComposeResult:
-        yield Vertical(FileDrop(id="drag"), Horizontal(classes="root"))
+        yield FileDrop(id="drop")
+        yield Horizontal(classes="root")
 
     def on_mount(self):
         self.root = self.query_one(".root")
-        self.drag = self.query_one("#drag")
-        self.drag.focus()
+        self.root.styles.display = "none"
+        self.drop = self.query_one("#drop")
+        self.drop.focus()
 
-    def on_file_drop_selected(self, message: FileDrop.Selected) -> None:
+    def on_file_drop_dropped(self, event: FileDrop.Dropped) -> None:
+        self.root.styles.display = "block"
         try:
             self.query_one(".tree").remove()
+            self.query_one(".url").remove()
         except:
             pass
-        self.drag.styles.height = 7
-        self.drag.styles.dock = "top"
+        self.drop.styles.height = 7
+        self.drop.styles.dock = "top"
 
-        filepaths = message.filepaths
+        filepaths = event.filepaths
         subs = []
         for i in filepaths:
             try:
@@ -71,9 +75,10 @@ class CombinerApp(App):
         tree.show_root = False
         tree.show_guides = True
         self.root.mount(tree)
+        self.drop.mount(Static("", classes="url"))
 
-    def on_tree_node_selected(self, message: Tree.NodeSelected) -> None:
-        print(message.name)
+    def on_tree_node_selected(self, event: Tree.NodeSelected) -> None:
+        pass
 
     @classmethod
     def add_json(cls, node: TreeNode, json_data: object, root_name: str) -> None:
@@ -102,7 +107,7 @@ class CombinerApp(App):
                     new_node = node.add("", expand=True)
                     add_node(key, new_node, value)
             elif isinstance(data, list):
-                node._label = Text(f"{name}")
+                node._label = Text(f"歷{name}")
                 for index, value in enumerate(data):
                     new_node = node.add("", expand=True)
                     add_node(str(index), new_node, value)

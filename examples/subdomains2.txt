@@ -1,0 +1,13 @@
+https://www.abc.com
+https://mail.abc.com
+https://blog.abc.com
+https://store.abc.com
+https://api.abc.com
+https://dev.api.abc.com
+https://test.api.abc.com
+https://staging.store.abc.com
+https://support.blog.abc.com
+https://alpha.dev.api.abc.com
+https://beta.test.api.abc.com
+https://prerelease.staging.store.abc.com
+https://help.support.blog.abc.com

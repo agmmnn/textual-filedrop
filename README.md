@@ -1,4 +1,4 @@
-![screenshot](https://user-images.githubusercontent.com/16024979/208250956-6a3c37ad-25b3-4698-8863-7c116e76b652.gif)
+![textual-filedrop](https://user-images.githubusercontent.com/16024979/208708722-e550d8ca-22a7-47f0-adf9-16cad570cdfd.png)
 
 # textual-filedrop
 
@@ -41,4 +41,29 @@ def on_file_drop_selected(self, message: FileDrop.Selected) -> None:
 
 
 # output: path, [filepaths], [filenames], [filesobj]
+```
+
+## Examples
+
+### [subdomain_lister](./examples/subdomain_lister.py)
+
+Drag and drop the subdomain list files and see the results as a tree list.
+
+![subdomain_lister](https://user-images.githubusercontent.com/16024979/208706132-0a33bb21-51b8-441a-aeb9-668dbfcb382c.gif)
+
+### [fullscreen](./examples/fullscreen.py)
+
+Fullscreen example, will show the results in the textual console.
+
+### [hidden](./examples/hidden.py)
+
+As long as focus is on, the FileDrop widget will be active even if it is not visible on the screen.
+
+## Dev
+
+```
+poetry install
+
+textual console
+poetry run textual run --dev examples/subdomain_lister.py
 ```
