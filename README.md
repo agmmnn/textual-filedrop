@@ -6,9 +6,13 @@ Add filedrop support to your [Textual](https://github.com/textualize/textual/) a
 
 ## Install
 
-_soon..._
+```
+pip install textual-filedrop
+```
 
 ## Usage
+
+You can find more examples [here](./examples).
 
 ```py
 # add FileDrop widget to your app
@@ -21,7 +25,7 @@ self.query_one("#filedrop").focus()
 ```
 
 ```py
-# what to do when the files are dropped
+# when the files are selected/dropped
 def on_file_drop_selected(self, message: FileDrop.Selected) -> None:
     path = message.path
     filepaths = message.filepaths

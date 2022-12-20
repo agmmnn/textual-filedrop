@@ -10,6 +10,8 @@ from rich.console import RenderableType
 import os
 import re
 
+from ._icons import get_icon
+
 
 class FileDrop(Widget, can_focus=True, can_focus_children=False):
     DEFAULT_CSS = """
@@ -38,11 +40,17 @@ class FileDrop(Widget, can_focus=True, can_focus_children=False):
         """File paths selected message."""
 
         def __init__(
-            self, sender: MessageTarget, path: str, filepaths: list, filenames: list
+            self,
+            sender: MessageTarget,
+            path: str,
+            filepaths: list,
+            filenames: list,
+            filesobj: list,
         ) -> None:
             self.path = path
             self.filepaths = filepaths
             self.filenames = filenames
+            self.filesobj = filesobj
             super().__init__(sender)
 
     async def on_event(self, event: events.Event) -> None:
@@ -56,29 +64,30 @@ class FileDrop(Widget, can_focus=True, can_focus_children=False):
             ]
             if filepaths:
                 filenames = [os.path.basename(i) for i in filepaths]
+                filesobj = []
+                for i in filepaths:
+                    file_name = os.path.basename(i)
+                    _, file_ext = os.path.splitext(file_name)
+                    file_ext = file_ext.replace(".", "")
+                    file_path = i
+                    filesobj.append(
+                        {
+                            "path": file_path,
+                            "name": file_name,
+                            "ext": file_ext,
+                            "icon": get_icon(file_name, file_ext),
+                        }
+                    )
                 await self.emit(
                     self.Selected(
-                        self, os.path.split(filepaths[0])[0], filepaths, filenames
+                        self,
+                        os.path.split(filepaths[0])[0],
+                        filepaths,
+                        filenames,
+                        filesobj,
                     )
                 )
-                self.txt = ", ".join(["📄" + filename for filename in filenames])
+                self.txt = ", ".join(
+                    [f'[on dark_green] {i["icon"]} [/]{i["name"]}' for i in filesobj]
+                )
                 self.styles.border = ("round", "#2E8B57")
-
-
-class FileDropApp(App):
-    def compose(self) -> ComposeResult:
-        yield FileDrop(id="filedrop")
-
-    def on_mount(self):
-        self.query_one("#filedrop").focus()
-
-    def on_file_drop_selected(self, message: FileDrop.Selected) -> None:
-        path = message.path
-        filepaths = message.filepaths
-        filenames = message.filenames
-        print(path, filepaths, filenames)
-
-
-if __name__ == "__main__":
-    app = FileDropApp()
-    app.run()
