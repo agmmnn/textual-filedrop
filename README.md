@@ -4,12 +4,22 @@
 
 Add filedrop support to your [Textual](https://github.com/textualize/textual/) apps, easily drag and drop files into your terminal apps.
 
-> _Tested in `Windows Terminal` only. Other terminals/operating systems may not be using the [Paste](https://textual.textualize.io/events/paste/) event._
+> _Tested on `Windows` and [`macOS`](https://github.com/Textualize/textual/discussions/1414#discussioncomment-4467029)._
+
+> _[Nerd Font](https://www.nerdfonts.com/font-downloads) is required to display file icons._
 
 ## Install
 
 ```
 pip install textual-filedrop
+```
+
+or
+
+```
+git clone https://github.com/agmmnn/textual-filedrop.git
+cd textual-filedrop
+poetry install
 ```
 
 ## Usage
@@ -31,8 +41,8 @@ self.query_one("#filedrop").focus()
 ```
 
 ```py
-# when the files are selected/dropped
-def on_file_drop_selected(self, message: FileDrop.Selected) -> None:
+# when the files are dropped
+def on_file_drop_dropped(self, message: FileDrop.Dropped) -> None:
     path = message.path
     filepaths = message.filepaths
     filenames = message.filenames
