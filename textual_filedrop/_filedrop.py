@@ -30,9 +30,9 @@ class FileDrop(Widget, can_focus=True, can_focus_children=False):
     def __init__(
         self,
         display: bool = True,
-        name: str | None = None,
-        id: str | None = None,
-        classes: str | None = None,
+        name: str = None,
+        id: str = None,
+        classes: str = None,
     ) -> None:
         super().__init__(name=name, id=id, classes=classes)
 
@@ -86,7 +86,7 @@ class FileDrop(Widget, can_focus=True, can_focus_children=False):
                             "icon": get_icon(file_name, file_ext),
                         }
                     )
-                await self.emit(
+                await self.post_message(
                     self.Dropped(
                         self,
                         os.path.split(filepaths[0])[0],

@@ -1,6 +1,7 @@
 from textual.app import App, ComposeResult
-from textual.containers import Vertical, Horizontal, Container
-from textual.widgets import Static, Button, Input, Tree, TreeNode
+from textual.containers import Horizontal
+from textual.widgets import Static, Tree
+from textual.widgets.tree import TreeNode
 from rich.text import Text
 
 import tldextract
@@ -42,7 +43,7 @@ class CombinerApp(App):
         subs = []
         for i in filepaths:
             try:
-                with open(i, "r") as f:
+                with open(i, "r", encoding="utf-8") as f:
                     contents = f.read()
                 subs.extend(filter(lambda x: x != "", contents.split("\n")))
             except:

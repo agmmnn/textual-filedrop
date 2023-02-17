@@ -34,7 +34,7 @@ class FileDropApp(App):
         filenames = event.filenames
         filesobj = event.filesobj
 
-        with open(filepaths[0], "r") as f:
+        with open(filepaths[0], "r", encoding="utf-8") as f:
             self.query_one("#title").update(filenames[0])
             self.query_one("#content").update(f.read())
 
