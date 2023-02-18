@@ -28,16 +28,6 @@ class CombinerApp(App):
         self.drop = self.query_one("#drop")
         self.drop.focus()
 
-    def on_paste(self, event: events.Paste) -> None:
-        files = GetFiles(event).files
-        print(files)
-        self.drop.txt = " ".join(
-            [
-                f'[on dodger_blue3] {i["icon"]} [/][on gray27]{i["name"]}[/]'
-                for i in files
-            ]
-        )
-
     def on_file_drop_dropped(self, event: FileDrop.Dropped) -> None:
         self.root.styles.display = "block"
         try:
