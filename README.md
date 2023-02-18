@@ -30,7 +30,7 @@ Since version [0.10.0](https://github.com/Textualize/textual/releases/tag/v0.10.
 
 ### `getfiles`
 
-The `getfiles` function will return an object containing the the _path, file name, extension, icon_ of the files.
+`getfiles` returns an object containing the _path, filename, extension_ and _icon_ of the files.
 
 ```py
 from textual_filedrop import getfiles
