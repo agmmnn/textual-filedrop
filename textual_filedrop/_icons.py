@@ -1,5 +1,5 @@
 # from: Peltoche/lsd
-# https:#github.com/Peltoche/lsd/blob/f22ad5b2ef5e4910995cbc40dd666098b995b85e/src/theme/icon.rs
+# https://github.com/Peltoche/lsd/blob/f22ad5b2ef5e4910995cbc40dd666098b995b85e/src/theme/icon.rs
 
 ICONS = {
     # icons_by_name
