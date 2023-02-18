@@ -30,7 +30,7 @@ Since version [0.10.0](https://github.com/Textualize/textual/releases/tag/v0.10.
 
 ### `getfiles`
 
-The `getfiles` function will return an object containing the the path, file name, extension, icon, of the files. It will be enough to send the event in the `on_paste` function.
+The `getfiles` function will return an object containing the the _path, file name, extension, icon_ of the files.
 
 ```py
 from textual_filedrop import getfiles
