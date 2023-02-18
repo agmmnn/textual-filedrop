@@ -1,7 +1,8 @@
 # from: Peltoche/lsd
 # https:#github.com/Peltoche/lsd/blob/f22ad5b2ef5e4910995cbc40dd666098b995b85e/src/theme/icon.rs
 
-icons_by_name = {
+ICONS = {
+    # icons_by_name
     "a.out": "\uf489",  # ""
     "api": "\uf98c",  # "歷"
     ".atom": "\ue764",  # ""
@@ -193,9 +194,7 @@ icons_by_name = {
     "zathurarc": "\ue615",  # ""
     ".zsh_history": "\ue615",  # ""
     ".zshrc": "\uf489",  # ""
-}
-
-icons_by_extension = {
+    # icons_by_extension
     "1": "\uf02d",  # ""
     "2": "\uf02d",  # ""
     "3": "\uf02d",  # ""
@@ -481,10 +480,4 @@ icons_by_extension = {
 
 
 def get_icon(file_name, file_ext):
-    icon = icons_by_name.get(file_name)
-    if icon:
-        return icon
-    icon = icons_by_extension.get(file_ext)
-    if icon:
-        return icon
-    return "\uf15c"
+    return ICONS.get(file_name, ICONS.get(file_ext, "\uf15c"))

@@ -28,11 +28,11 @@ class FileDropApp(App):
     def on_mount(self):
         self.query_one("#filedrop").focus()
 
-    def on_file_drop_dropped(self, event: FileDrop.Dropped) -> None:
-        path = event.path
-        filepaths = event.filepaths
-        filenames = event.filenames
-        filesobj = event.filesobj
+    def on_file_drop_dropped(self, message: FileDrop.Dropped) -> None:
+        path = message.path
+        filepaths = message.filepaths
+        filenames = message.filenames
+        filesobj = message.filesobj
 
         with open(filepaths[0], "r", encoding="utf-8") as f:
             self.query_one("#title").update(filenames[0])

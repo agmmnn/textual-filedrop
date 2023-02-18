@@ -3,10 +3,9 @@ from textual.containers import Horizontal
 from textual.widgets import Static, Tree
 from textual.widgets.tree import TreeNode
 from rich.text import Text
-
 import tldextract
-
-from textual_filedrop import FileDrop
+from textual_filedrop import FileDrop, GetFiles
+from textual import events
 
 
 class CombinerApp(App):
@@ -29,6 +28,16 @@ class CombinerApp(App):
         self.drop = self.query_one("#drop")
         self.drop.focus()
 
+    def on_paste(self, event: events.Paste) -> None:
+        files = GetFiles(event).files
+        print(files)
+        self.drop.txt = " ".join(
+            [
+                f'[on dodger_blue3] {i["icon"]} [/][on gray27]{i["name"]}[/]'
+                for i in files
+            ]
+        )
+
     def on_file_drop_dropped(self, event: FileDrop.Dropped) -> None:
         self.root.styles.display = "block"
         try:
@@ -40,6 +49,7 @@ class CombinerApp(App):
         self.drop.styles.dock = "top"
 
         filepaths = event.filepaths
+        print(event.filesobj)
         subs = []
         for i in filepaths:
             try:

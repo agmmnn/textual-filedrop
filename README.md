@@ -28,7 +28,25 @@ Since version [0.10.0](https://github.com/Textualize/textual/releases/tag/v0.10.
 
 ## Usage
 
-You can find more examples [here](./examples).
+### `getfiles`
+
+The `getfiles` function will return an object containing the the path, file name, extension, icon, of the files. It will be enough to send the event in the `on_paste` function.
+
+```py
+from textual_filedrop import getfiles
+
+class MyApp(App):
+...
+    def on_paste(self, event) -> None:
+        files = getfiles(event)
+        print(files)
+```
+
+![](https://i.imgur.com/1xdpivC.png)
+
+### `FileDrop` Widget
+
+As long as the `FileDrop` widget is in focus, it will give the information of the dragged files and render the file names with their icons on the screen.
 
 ```py
 from textual_filedrop import FileDrop
@@ -57,21 +75,27 @@ def on_file_drop_dropped(self, message: FileDrop.Dropped) -> None:
 # output: path, [filepaths], [filenames], [filesobj]
 ```
 
+You can find more examples [here](./examples).
+
 ## Examples
 
-### [subdomain_lister](./examples/subdomain_lister.py)
+### [subdomain_lister.py](./examples/subdomain_lister.py)
 
 Drag and drop the subdomain list files and see the results as a tree list.
 
 ![subdomain_lister](https://user-images.githubusercontent.com/16024979/208706132-0a33bb21-51b8-441a-aeb9-668dbfcb382c.gif)
 
-### [fullscreen](./examples/fullscreen.py)
+### [fullscreen.py](./examples/fullscreen.py)
 
 Fullscreen example, will show the results in the textual console.
 
-### [hidden](./examples/hidden.py)
+### [hidden.py](./examples/hidden.py)
 
-As long as focus is on, the FileDrop widget will be active even if it is not visible on the screen.
+As long as focus is on, the `FileDrop` widget will be active even if it is not visible on the screen.
+
+### [without_widget.py](./examples/without_widget.py)
+
+An example that renders the object with the information of the dragged files returned from the `getfiles` function to the screen with `rich.json`.
 
 ## Dev
 
