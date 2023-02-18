@@ -22,6 +22,10 @@ cd textual-filedrop
 poetry install
 ```
 
+## Note
+
+Since version [0.10.0](https://github.com/Textualize/textual/releases/tag/v0.10.0) Textual supports [bubble](https://textual.textualize.io/guide/events/#bubbling) for the [paste event](https://textual.textualize.io/events/paste/) ([Textualize/textual#1434](https://github.com/Textualize/textual/issues/1434)). So if the terminal where your app is running treats the file drag and drop as a paste event, you can catch it yourself with the `on_paste` function without widget.
+
 ## Usage
 
 You can find more examples [here](./examples).
