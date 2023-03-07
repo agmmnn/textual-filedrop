@@ -77,12 +77,14 @@ class FileDrop(Widget, can_focus=True, can_focus_children=False):
             filepaths: list,
             filenames: list,
             filesobj: list,
+            oneline: str,
         ) -> None:
             super().__init__(sender)
             self.path = path
             self.filepaths = filepaths
             self.filenames = filenames
             self.filesobj = filesobj
+            self.oneline = oneline
 
     async def on_event(self, event: events.Event) -> None:
         if isinstance(event, events.Focus):

@@ -4,7 +4,7 @@ from textual.widgets import Static, Tree
 from textual.widgets.tree import TreeNode
 from rich.text import Text
 import tldextract
-from textual_filedrop import FileDrop, GetFiles
+from textual_filedrop import FileDrop, getfiles
 from textual import events
 
 
