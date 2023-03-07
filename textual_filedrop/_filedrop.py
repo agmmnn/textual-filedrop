@@ -113,7 +113,6 @@ class FileDrop(Widget, can_focus=True, can_focus_children=False):
                 filepaths,
                 filenames,
                 filesobj,
-                oneline,
             )
         )
         self.txt = oneline
