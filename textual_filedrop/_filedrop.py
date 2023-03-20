@@ -6,7 +6,6 @@ from typing import List, Dict, Any
 from textual.widget import Widget
 from textual.reactive import reactive
 from textual.message import Message
-from textual._types import MessageTarget
 from textual import events
 
 from rich.console import RenderableType
@@ -72,14 +71,13 @@ class FileDrop(Widget, can_focus=True, can_focus_children=False):
     class Dropped(Message):
         def __init__(
             self,
-            sender: MessageTarget,
             path: str,
             filepaths: list,
             filenames: list,
             filesobj: list,
             oneline: str,
         ) -> None:
-            super().__init__(sender)
+            super().__init__()
             self.path = path
             self.filepaths = filepaths
             self.filenames = filenames
@@ -96,25 +94,20 @@ class FileDrop(Widget, can_focus=True, can_focus_children=False):
             filepaths = _extract_filepaths(event.text)
             if filepaths:
                 filesobj = _build_filesobj(filepaths)
-                await self._post_message(filepaths, filesobj)
-
-    async def _post_message(
-        self, filepaths: List[str], filesobj: List[Dict[str, Any]]
-    ) -> None:
-        filenames = [os.path.basename(i) for i in filepaths]
-        oneline = " ".join(
-            [
-                f'[on dodger_blue3] {i["icon"]} [/][on gray27]{i["name"]}[/]'
-                for i in filesobj
-            ]
-        )
-        await self.post_message(
-            self.Dropped(
-                self,
-                os.path.split(filepaths[0])[0],
-                filepaths,
-                filenames,
-                filesobj,
-            )
-        )
-        self.txt = oneline
+                filenames = [os.path.basename(i) for i in filepaths]
+                oneline = " ".join(
+                    [
+                        f'[on dodger_blue3] {i["icon"]} [/][on gray27]{i["name"]}[/]'
+                        for i in filesobj
+                    ]
+                )
+                self.post_message(
+                    self.Dropped(
+                        os.path.split(filepaths[0])[0],
+                        filepaths,
+                        filenames,
+                        filesobj,
+                        oneline,
+                    )
+                )
+                self.txt = oneline
