@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "textual-filedrop"
-version = "0.3.1"
+version = "0.3.3"
 description = "FileDrop widget for Textual, easily drag and drop files into your terminal apps."
 authors = ["agmmnn <agmmnn@gmail.com>"]
 readme = "README.md"
@@ -8,12 +8,12 @@ packages = [{ include = "textual_filedrop" }]
 
 [tool.poetry.dependencies]
 python = "^3.7.8"
-textual = "^0.11.1"
-rich = "^13.3.1"
+textual = "^0.15.1"
+rich = "^13.3.2"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.1.0"
-textual = { version = "^0.11.1", extras = ["dev"] }
+textual = { version = "^0.15.1", extras = ["dev"] }
 tldextract = "^3.4.0"
 
 [build-system]
