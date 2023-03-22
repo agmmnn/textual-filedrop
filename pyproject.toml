@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "textual-filedrop"
-version = "0.3.3"
+version = "0.3.5"
 description = "FileDrop widget for Textual, easily drag and drop files into your terminal apps."
 authors = ["agmmnn <agmmnn@gmail.com>"]
 readme = "README.md"
