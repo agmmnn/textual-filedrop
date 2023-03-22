@@ -1,5 +1,6 @@
 import os
 import re
+import shlex
 
 from typing import List, Dict, Any
 
@@ -14,13 +15,24 @@ from ._icons import get_icon
 
 
 def _extract_filepaths(text: str) -> List[str]:
-    pattern = r'(?:[^\s"]|"(?:\\"|[^"])*")+'
-    split_filepaths = re.findall(pattern, text)
-    filepaths = [
-        i.replace("\x00", "").replace('"', "")
-        for i in split_filepaths
-        if os.path.isfile(i.replace("\x00", "").replace('"', ""))
-    ]
+    split_filepaths = []
+    if os.name == "nt":
+        pattern = r'(?:[^\s"]|"(?:\\"|[^"])*")+'
+        split_filepaths = re.findall(pattern, text)
+    else:
+        split_filepaths = shlex.split(text)
+
+    split_filepaths = shlex.split(text)
+    print(split_filepaths)
+    filepaths = []
+    for i in split_filepaths:
+        item = i.replace("\x00", "").replace('"', "")
+        if os.path.isfile(item):
+            filepaths.append(i)
+        elif os.path.isdir(item):
+            for root, _, files in os.walk(item):
+                for file in files:
+                    filepaths.append(os.path.join(root, file))
     return filepaths
 
 
